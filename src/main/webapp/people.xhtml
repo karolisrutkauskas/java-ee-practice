@@ -18,17 +18,24 @@
 <h:head/>
 <h:body>
     <h2>People in club #{people.club.name}</h2>
-    <table style="width:100%;">
+    <table>
         <tr>
             <th>Name</th>
             <th>Surname</th>
             <th>Email</th>
+            <th>Remove person</th>
         </tr>
         <ui:repeat value="#{people.club.people}" var="person">
             <tr>
                 <th>#{person.firstName}</th>
                 <th>#{person.lastName}</th>
                 <th>#{person.email}</th>
+                <th><h:form><h:commandButton value="Remove" action="#{people.deletePersonFromClub}">
+                    <f:param name="clubId" value="#{people.club.id}" />
+                    <f:param name="personId" value="#{person.id}" />
+                </h:commandButton>
+                </h:form>
+                </th>
             </tr>
         </ui:repeat>
     </table>

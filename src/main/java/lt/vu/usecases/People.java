@@ -43,10 +43,8 @@ public class People {
     public void init(){
         Map<String, String> requestParameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         System.out.println(requestParameters.size());
-        if(requestParameters.size() > 0 && requestParameters.size() < 2){
             Integer clubId = Integer.parseInt(requestParameters.get("clubId"));
             this.club = clubDAO.findOne(clubId);
-        }
         loadAllPeople();
     }
 
@@ -62,13 +60,33 @@ public class People {
 
     @Transactional
     public String editPerson(){
-        Map<String, String> requestParameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> requestParameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();;
         Person person = personDAO.findOne(personSelected);
         Integer clubId = Integer.parseInt(requestParameters.get("clubId"));
         this.club = clubDAO.findOne(clubId);
         try {
             List<Club> clubs = person.getClubs();
             clubs.add(club);
+            person.setClubs(clubs);
+            this.personDAO.update(person);
+        } catch (OptimisticLockException e) {
+            return "people?faces-redirect=true&clubId=" + person.getId() + "&error=optimistic-lock-exception";
+        }
+        return "people?faces-redirect=true&clubId=" + this.club.getId();
+    }
+
+    @Transactional
+    public String deletePersonFromClub(){
+        Map<String, String> requestParameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Integer clubId = Integer.parseInt(requestParameters.get("clubId"));
+        Integer personId = Integer.parseInt(requestParameters.get("personId"));
+        this.club = clubDAO.findOne(clubId);
+        Person person = personDAO.findOne(personId);
+        System.out.println(club.getId());
+        System.out.println(person.getId());
+        try {
+            List<Club> clubs = person.getClubs();
+            clubs.remove(this.club);
             person.setClubs(clubs);
             this.personDAO.update(person);
         } catch (OptimisticLockException e) {
