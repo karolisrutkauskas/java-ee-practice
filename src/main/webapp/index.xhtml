@@ -18,19 +18,15 @@
 <h:head/>
 <h:body>
     <h2>All clubs</h2>
-    <table style="width:100%;">
+    <table >
         <tr>
             <th>Club name</th>
-            <th>Starts at</th>
-            <th>Ends at</th>
             <th>Number of members</th>
             <th>Change members</th>
         </tr>
         <ui:repeat value="#{clubs.allClubs}" var="club" varStatus="clubStatus">
             <tr>
                 <th>#{club.name}</th>
-                <th>#{club.startTime}</th>
-                <th>#{club.endTime}</th>
                 <th>#{club.people.size()}</th>
                 <th>
                     <h:link outcome="people?clubId=#{club.id}">
