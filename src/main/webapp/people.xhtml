@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<style>
+    table, th, tr{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    input[type=submit]{
+        background-color: blue;
+        color:white;
+    }
+</style>
+<h:head/>
+<h:body>
+    <h2>People in club #{people.club.name}</h2>
+    <table style="width:100%;">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+        </tr>
+        <ui:repeat value="#{people.club.people}" var="person">
+            <tr>
+                <th>#{person.firstName}</th>
+                <th>#{person.lastName}</th>
+                <th>#{person.email}</th>
+            </tr>
+        </ui:repeat>
+    </table>
+    <h:form>
+        <h:selectOneMenu value="#{people.personSelected}">
+            <f:selectItems value="#{people.allPeople}" var="person"
+                           itemLabel="#{person.firstName} #{person.lastName}" itemValue="#{person.id}"/>
+        </h:selectOneMenu>
+        <h:outputText value="&lt;br/&gt;" escape="false" />
+        <h:commandButton value="Add person to club" action="#{people.editPerson}">
+            <f:param name="clubId" value="#{people.club.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="clubs" value="Clubs"/>
+</h:body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+>
+<style>
+    table, th, tr{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    input[type=submit]{
+        background-color: blue;
+        color:white;
+    }
+</style>
+<h:head/>
+<h:body>
+    <h2>All people</h2>
+    <table style="width:100%;">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+        </tr>
+        <ui:repeat value="#{people.allPeople}" var="person">
+            <tr>
+                <th>#{person.firstName}</th>
+                <th>#{person.lastName}</th>
+                <th>#{person.email}</th>
+            </tr>
+        </ui:repeat>
+    </table>
+    <h:form>
+        <h:inputText a:placeholder="Name" value="#{people.personToCreate.firstName}" required="true" />
+        <h:inputText a:placeholder="Surname" value="#{people.personToCreate.lastName}" required="true" />
+        <h:inputText a:placeholder="Email" value="#{people.personToCreate.email}" required="true" />
+        <h:commandButton value="Add person" action="#{people.createPerson()}" >
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="clubs" value="Clubs"/>
+</h:body>
+</html>
