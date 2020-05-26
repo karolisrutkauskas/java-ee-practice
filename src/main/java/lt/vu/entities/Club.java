@@ -18,7 +18,6 @@ import java.util.Objects;
 @Setter
 public class Club {
     public Club(){
-
     }
 
     @Id
@@ -43,6 +42,10 @@ public class Club {
     @ManyToOne
     @JoinColumn(name = "venue")
     private Venue venue;
+
+    @Version
+    @Column(name = "opt_lock_version")
+    private Integer version;
 
     @Override
     public boolean equals(Object o) {

@@ -35,6 +35,10 @@ public class Venue {
     @OneToMany(mappedBy = "venue", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Club> clubs = new ArrayList<>();
 
+   @Basic
+   @Column(name = "venue_price")
+   private double venuePrice;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

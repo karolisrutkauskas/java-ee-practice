@@ -23,6 +23,12 @@ public class ClubDAO {
     public Club update(Club club){
         return em.merge(club);
     }
+
+    public Club insert(Club club){
+        em.persist(club);
+        return club;
+    }
+
     public List<Club> loadAll() {
         return em.createNamedQuery("Club.findAll", Club.class).getResultList();
     }

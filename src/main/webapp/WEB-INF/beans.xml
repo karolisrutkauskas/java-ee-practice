@@ -6,7 +6,13 @@
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="annotated">
 
+    <alternatives>
+        <class>lt.vu.services.ExpensiveVenuePricingService</class>
+    </alternatives>
     <interceptors>
-        <class>lt.vu.interceptors.MethodLogger</class>
+        <class>lt.vu.interceptors.LoggerImpl</class>
     </interceptors>
+    <decorators>
+        <class>lt.vu.services.PricingServiceDecorator</class>
+    </decorators>
 </beans>
